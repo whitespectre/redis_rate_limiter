@@ -27,10 +27,6 @@ describe RedisRateLimiter do
       10.times { @rl.add(subject) }
       expect(@redis.lrange("key:#{subject}", 0, 100).size).to eq(@rl.limit)
     end
-    it "should refresh expiry of subject's list" do
-      expect(@redis).to receive(:expire).with("key:#{subject}", @rl.interval)
-      @rl.add(subject)
-    end
   end
 
   describe "#exceeded?" do
